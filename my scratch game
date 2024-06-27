@@ -1,0 +1,68 @@
+c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define SIZE 3 // Size of the scratch card grid
+
+void initializeCard(int card[SIZE][SIZE]) {
+    // Initialize the card with random values
+    srand(time(0));
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            card[i][j] = rand() % 10; // Random number between 0 and 9
+        }
+    }
+}
+
+void displayCard(int card[SIZE][SIZE], int revealed[SIZE][SIZE]) {
+    // Display the card with revealed and hidden values
+    printf("Scratch Card:\n");
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (revealed[i][j]) {
+                printf("%d ", card[i][j]);
+            } else {
+                printf("* ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int card[SIZE][SIZE];
+    int revealed[SIZE][SIZE] = {0}; // 0 means hidden, 1 means revealed
+    int row, col;
+    int attempts = SIZE * SIZE; // Maximum number of attempts
+
+    initializeCard(card);
+
+    while (attempts > 0) {
+        displayCard(card, revealed);
+        printf("Enter the row and column to scratch (0-based index): ");
+        scanf("%d %d", &row, &col);
+
+        if (row >= 0 && row < SIZE && col >= 0 && col < SIZE) {
+            if (!revealed[row][col]) {
+                revealed[row][col] = 1;
+                attempts--;
+                printf("Revealed: %d\n", card[row][col]);
+            } else {
+                printf("Already revealed! Try a different cell.\n");
+            }
+        } else {
+            printf("Invalid coordinates! Try again.\n");
+        }
+    }
+
+    printf("Game Over! Here's the full card:\n");
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            printf("%d ", card[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
