@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void convertToFahrenheit(float celsius) {
+    float fahrenheit = (celsius * 9 / 5) + 32;
+    printf("Temperature in Fahrenheit: %.2f\n", fahrenheit);
+}
+
+void convertToCelsius(float fahrenheit) {
+    float celsius = (fahrenheit - 32) * 5 / 9;
+    printf("Temperature in Celsius: %.2f\n", celsius);
+}
+
+int main() {
+    float temperature;
+    int choice;
+    
+    printf("Enter the temperature value: ");
+    scanf("%f", &temperature);
+    
+    printf("Select conversion unit:\n");
+    printf("1. Celsius to Fahrenheit\n");
+    printf("2. Fahrenheit to Celsius\n");
+    printf("Enter your choice (1 or 2): ");
+    scanf("%d", &choice);
+    
+    if (choice == 1) {
+        convertToFahrenheit(temperature);
+    } else if (choice == 2) {
+        convertToCelsius(temperature);
+    } else {
+        printf("Invalid choice! Please enter 1 or 2.\n");
+    }
+    
+    return 0;
+}
